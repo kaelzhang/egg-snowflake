@@ -88,7 +88,7 @@ The bit-length of the return value equals to:
 41 + machineIdBitLength + workerIdBitLength + serialIdBitLength
 ```
 
-So you could use the three configuration option to handle the length of uuids.
+So you could use the three configuration options to handle the length of uuids.
 
 ### await snowflake.index()
 
