@@ -80,7 +80,15 @@ Then:
 
 Generates the unique and time-based id across workers (/ machines)
 
-Returns `String | Promise<String>` instead of `Number` due to the bad accuracy of JavaScript
+Returns `String | Promise<String>` instead of `Number` due to the bad accuracy of JavaScript.
+
+The bit-length of the return value equals to:
+
+```js
+41 + machineIdBitLength + workerIdBitLength + serialIdBitLength
+```
+
+So you could use the three configuration option to handle the length of uuids.
 
 ### await snowflake.index()
 
