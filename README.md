@@ -15,7 +15,9 @@
 
 # egg-snowflake
 
-Egg plugin to generate unique and increased twitter-snowflake uuid.
+Egg plugin to generate unique and increased [twitter-snowflake](https://www.slideshare.net/davegardnerisme/unique-id-generation-in-distributed-systems) uuid.
+
+`egg-snowflake`
 
 ## Install
 
@@ -36,13 +38,10 @@ exports.snowflake = {
 
 config/config.default.js
 
-```
-|--- timestamp ---|- machine -|- worker -|-- serial --|
-|----- 41 bit ----|---- 6 ----|--- 4 ----|---- 12 ----|
- 00000000000000000    000001      0000    000000000000
-```
-
 ```js
+// |--- timestamp ---|- machine -|- worker -|-- serial --|
+// |----- 41 bit ----|---- 6 ----|--- 4 ----|---- 12 ----|
+//  00000000000000000    000001      0000    000000000000
 exports.snowflake = {
   client: {
     machineIdBitLength: 6,
@@ -58,10 +57,28 @@ Then:
 ```js
 ...
   async doSomething () {
-    const uuid = this.app.snowflake.uuid()
+    const {snowflake} = this.app
+
+    const uuid = await snowflake.uuid()
+    console.log(uuid)
+    // '6352534847126241280'
+
+    const workerId = await snowflake.index()
+    console.log(workerId)
+    // 0
   }
 ...
 ```
+
+### await snowflake.uuid()
+
+Generates the unique and time-based id across workers (/ machines)
+
+Returns `String | Promise<String>` instead of `Number` due to the bad accuracy of JavaScript
+
+### await snowflake.index()
+
+Returns `String | Promise<Number>` the 0-index unique worker id of the current cluster.
 
 ## License
 

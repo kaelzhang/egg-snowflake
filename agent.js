@@ -1,1 +1,1 @@
-module.exports = require('./lib/snowflake').app
+module.exports = require('./lib/snowflake').agent
