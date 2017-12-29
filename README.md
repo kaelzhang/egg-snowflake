@@ -15,7 +15,7 @@
 
 # egg-snowflake
 
-Egg plugin to define multiple snowflake in a convenient way.
+Egg plugin to generate unique and increased twitter-snowflake uuid.
 
 ## Install
 
@@ -36,18 +36,19 @@ exports.snowflake = {
 
 config/config.default.js
 
+```
+|--- timestamp ---|- machine -|- worker -|-- serial --|
+|----- 41 bit ----|---- 6 ----|--- 4 ----|---- 12 ----|
+ 00000000000000000   000001       0000    000000000000
+```
+
 ```js
 exports.snowflake = {
-  foo: {
-    // Load into app, default is open
-    app: true,
-    // Load into agent, default is close
-    agent: false,
-    create: (config, app) => {
-      return a => {
-        console.log(a)
-      }
-    }
+  client: {
+    machineIdBitLength: 6,
+    workerIdBitLength: 4,
+    serialIdBitLength: 12,
+    machineId: 1
   }
 }
 ```
@@ -57,7 +58,7 @@ Then:
 ```js
 ...
   async doSomething () {
-    this.app.foo('hello')
+    const uuid = this.app.snowflake.uuid()
   }
 ...
 ```
