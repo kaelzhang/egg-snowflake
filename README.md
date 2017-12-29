@@ -17,7 +17,7 @@
 
 Egg plugin to generate unique and increased [twitter-snowflake](https://www.slideshare.net/davegardnerisme/unique-id-generation-in-distributed-systems) uuid.
 
-`egg-snowflake`
+`egg-snowflake` will first assign a unique worker id to each worker by using the IPC messaging, and then create uuid according to the twitter snowflake algorithm.
 
 ## Install
 
@@ -41,13 +41,19 @@ config/config.default.js
 ```js
 // |--- timestamp ---|- machine -|- worker -|-- serial --|
 // |----- 41 bit ----|---- 6 ----|--- 4 ----|---- 12 ----|
+// |                 |           |          |            |
 //  00000000000000000    000001      0000    000000000000
+
 exports.snowflake = {
   client: {
+    machineId: 1,
+    // `Number` if 6-bit length (the default value),
+    // we could handle servers from `2 ** 6` different machines.
+    // And if 0, there will be no machine id in the uuid
     machineIdBitLength: 6,
     workerIdBitLength: 4,
-    serialIdBitLength: 12,
-    machineId: 1
+    // Could handle max 4096 requests per millisecond
+    serialIdBitLength: 12
   }
 }
 ```

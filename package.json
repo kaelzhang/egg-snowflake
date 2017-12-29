@@ -1,6 +1,6 @@
 {
   "name": "egg-snowflake",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Egg plugin to generate unique and increased twitter-snowflake uuid.",
   "files": [
     "lib/",
