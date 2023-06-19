@@ -13,6 +13,14 @@
 [![Dependency Status](https://david-dm.org/kaelzhang/egg-snowflake.svg)](https://david-dm.org/kaelzhang/egg-snowflake)
 -->
 
+# Deprecation Warning
+
+Since this library only works for cluster mode of egg which is not a best practice for the de facto container-based server-side solutions such as Kubernetes.
+
+So I will archived this project and turn it into readonly mode.
+
+****
+
 # egg-snowflake
 
 Egg plugin to generate unique and increased [twitter-snowflake](https://www.slideshare.net/davegardnerisme/unique-id-generation-in-distributed-systems) uuid.
